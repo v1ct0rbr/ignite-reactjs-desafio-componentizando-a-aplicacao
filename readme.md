@@ -25,3 +25,4 @@ Esse componente, ainda vazio, deve possuir toda a lógica e corpo responsável p
 - **src/components/SideBar.tsx**
 Esse componente, também vazio, deve possuir toda a lógica e corpo responsável pela seção que contém o título do site e a parte de navegação à esquerda da página 
 
+<img src="https://firebasestorage.googleapis.com/v0/b/my-images-debc9.appspot.com/o/projetos%2Fignite%2Fwatchme%2Fwatchme.png?alt=media&token=d563247d-98f5-48c9-ab37-0d8166983bdc" alt="demonstracao"/>
