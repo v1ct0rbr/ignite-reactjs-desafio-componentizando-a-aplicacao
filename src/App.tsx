@@ -10,9 +10,13 @@ import { Content } from './components/Content';
 import './styles/global.scss';
 import './styles/sidebar.scss';
 import './styles/content.scss';
+import { AxiosResponse } from 'axios';
+
+//'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
+const firstGenre = 'action';
 
 export function App() {
-	const [selectedGenreId, setSelectedGenreId] = useState(1);
+	const [selectedGenreId, setSelectedGenreId] = useState(0);
 	const [genres, setGenres] = useState<Genre[]>([]);
 	const [movies, setMovies] = useState<Movie[]>([]);
 	const [selectedGenre, setSelectedGenre] = useState<Genre>({} as Genre);
@@ -21,16 +25,19 @@ export function App() {
 		api.get<Genre[]>('genres').then((response) => {
 			setGenres(response.data);
 		});
+		api.get<Genre[]>(`genres/?name=${firstGenre}`).then((response) => {
+			if (response?.data) {
+				setSelectedGenre(response.data[0]);
+				setSelectedGenreId(response.data[0].id);
+			}
+		});
 	}, []);
 
 	useEffect(() => {
-		api.get<Movie[]>(`movies/?Genre_id=${selectedGenreId}`).then((response) => {
-			setMovies(response.data);
-		});
-
-		api.get<Genre>(`genres/${selectedGenreId}`).then((response) => {
-			setSelectedGenre(response.data);
-		});
+		if (selectedGenreId > 0)
+			api.get<Movie[]>(`movies/?Genre_id=${selectedGenreId}`).then((response) => {
+				setMovies(response.data);
+			});
 	}, [selectedGenreId]);
 
 	function handleClickButton(id: number) {
